@@ -1,0 +1,11 @@
+.list{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: purple;
+    height: 100px;
+    align-items: center;
+    list-style: none;
+    font-size: 58px;
+}
