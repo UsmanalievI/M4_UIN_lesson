@@ -4,7 +4,7 @@ import User from './components/user/User';
 import Example from './components/example/example';
 import Header from './components/header/Header';
 import Modal from './components/modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CountPage from './page/countPage/CountPage';
 import Input from './components/input/Input';
 import ToDoList from './components/toDoList/ToDoList';
@@ -37,7 +37,8 @@ function App() {
       id:3,
       title: 'sleep',
       completed: false
-  }])
+  }]  
+ )
 
   const handleAdd=()=>{
     tasks.push(
@@ -48,10 +49,30 @@ function App() {
       }
     )
   }
+  const handleDone=(id)=>{
+    tasks.map(task=>{
+      if(task.id===id){
+        return task.completed=!task.completed
+      }
+      return tasks
+    })
+    setTasks([...tasks])
+  }
+  const handleEdit=(editTodo)=>{
+    tasks.map(task=>{
+      if (task.id===editTodo.id)
+      return task.title=editTodo.title
+    })
+    setTasks(tasks)
+  }
   const handleDelete=(id)=>{
-    console.log(id);
+    const deleted=tasks.filter(task=>task.id!==id)
+    setTasks(deleted)
   }
 
+// useEffect(()=>{
+//   console.log('useEffect');
+//   }, [show])
   
 
   return (
@@ -64,7 +85,7 @@ function App() {
         </Modal>
       }
       <button onClick={handleShow}>open</button>
-      <ToDoList tasks={tasks} handleDelete={handleDelete}/>
+      <ToDoList tasks={tasks} handleDelete={handleDelete} handleDone={handleDone} handleEdit={handleEdit}/>
     </>
   );
 }
