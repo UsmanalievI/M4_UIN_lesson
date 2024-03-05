@@ -1,0 +1,25 @@
+.task{
+    width: 600px;
+    height: 100px;
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    justify-content: space-between;
+}
+.info{
+    padding: 20px;
+    text-align: center;
+}
+.btnBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 10px;
+    text-decoration: none;
+}
+.done{
+    background-color: green;
+    text-decoration: line-through;
+}
