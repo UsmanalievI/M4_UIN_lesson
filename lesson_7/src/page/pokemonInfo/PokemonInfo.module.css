@@ -1,0 +1,12 @@
+.list{
+    border: 3px red solid;
+    border-radius: 5px;
+    background-color: royalblue;
+    width: 400px;
+    text-align: center;
+}
+.img{
+    background-color: yellow;
+    width: 400px;
+    height: 400px;
+}
