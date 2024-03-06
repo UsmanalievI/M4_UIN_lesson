@@ -8,6 +8,9 @@ import CountPage from './page/countPage/CountPage';
 import Input from './components/input/Input';
 import ToDoList from './components/toDoList/ToDoList';
 import Users from './page/users/Users';
+import Pagination from './components/pagination/Pagination';
+import PokemonPage from './page/pokemonPage/PokemonPage';
+import axios, { Axios } from 'axios';
 
 function App() {
   const navbar=['home', 'about us', 'contacts']; 
@@ -101,6 +104,31 @@ function App() {
     }
   })
 
+  const BASE_URL="https://jsonplaceholder.typicode.com"
+  const getApi= async (endpoint)=>{
+    const data =await fetch(BASE_URL+endpoint)
+    const info= await (data.json())
+    setTasks(info)
+  }
+
+  const [offset, setOffset]=useState(1)
+  const [limit, setLimit]=useState(10)
+
+  const handleLimitChange=(event)=>{
+    setLimit(event.target.value)
+  }
+  const handlePrev=()=>{
+    setOffset(prev=>prev-limit)
+  }
+  const handleNext=()=>{
+    setOffset(prev=>prev+limit)
+  }
+  const page=Math.floor(offset/limit)+1
+  
+  useEffect(()=>{
+    getApi(`todos?_limit=${limit}&_start=${offset}`)
+  }, [offset, limit])
+
   return (
     <>
       {
@@ -118,8 +146,11 @@ function App() {
       <button onClick={handleShow}>open</button>
       <button onClick={handleClear}>clear</button>
       <button onClick={getUsers}>getApi </button>
+      <input type='number' value={limit} onChange={handleLimitChange}/>
       <ToDoList tasks={filterTasks} handleDelete={handleDelete} handleDone={handleDone} handleEdit={handleEdit}/>
+      <Pagination handlePrev={handlePrev} handleNext={handleNext} page={page}/>
       <Users users={users}/>
+      <PokemonPage/>
     </>
   );
 }
